@@ -6,7 +6,6 @@
 
 using System;
 using System.Runtime.InteropServices;
-
 using pb = Google.Protobuf;
 
 namespace Mediapipe
