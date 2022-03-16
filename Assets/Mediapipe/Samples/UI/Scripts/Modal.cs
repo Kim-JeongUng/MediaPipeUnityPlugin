@@ -16,7 +16,7 @@ namespace Mediapipe.Unity.UI
     public void Open(GameObject contents)
     {
       _contents = Instantiate(contents, gameObject.transform);
-      _contents.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+      _contents.transform.localScale = new Vector3(0.95f, 0.95f, 1);
       gameObject.SetActive(true);
     }
 

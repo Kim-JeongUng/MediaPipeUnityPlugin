@@ -114,6 +114,7 @@ namespace Mediapipe.Unity
     {
 #if UNITY_EDITOR_OSX || UNITY_EDITOR_WIN
       if (_preferableInferenceMode == InferenceMode.GPU) {
+        Debug.Log(_preferableInferenceMode);
         Logger.LogWarning(_TAG, "Current platform does not support GPU inference mode, so falling back to CPU mode");
       }
       inferenceMode = InferenceMode.CPU;

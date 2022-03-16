@@ -1,0 +1,50 @@
+download
+참고 유튜브 : https://www.youtube.com/watch?v=kMJOmzmMxZw&t=337s&ab_channel=ArhamAalam
+cmd : 관리자모드로 실행
+
+
+1. Download the installer: msys2-x86_64-20220128.exe
+https://www.msys2.org/
+
+2. python 3.9 up download
+2-1 cmd상 경로 변경  cd *~디렉토리*\MediaPipeUnityPlugin
+
+3. bazel 
+3-1 cmd line 
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command " [System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+3-2
+cmd line choco install bazel
+
+nor cmd https://github.com/bazelbuild/bazel/releases/download/5.0.0/bazel-5.0.0-windows-x86_64.exe
+
+
+4 download nuget
+4-1 https://www.nuget.org/downloads
+4-2 고급 시스템설정보기 - 환경변수 - 시스템변수 "Path"에 nuget 추가 (C:\nuget로 새 폴더 만들고 추가)
+
+5 cmd line
+    (not working)5-1 pip install virtualenv
+    5-1 py -m venv env 
+    5-2 env\scripts\activate 
+
+
+6. ndk,jdk 등 설치 및 환경변수 설정 필요 (없을시)
+ 6-1 변수명 ANDROID_NDK_HOME 
+
+7. 바젤 vs community 설정 cmd line 
+set BAZEL_VS=C:\Program Files\Microsoft Visual Studio\2022\Community (각자 다름)
+set BAZEL_VC=C:\Program Files\Microsoft Visual Studio\2022\Community\VC  (각자 다름)
+set BAZEL_VC_FULL_VERSION=14.31.31103 (각자 다름 VC\Tools\MSVC에서 확인)
+set BAZEL_WINSDK_FULL_VERSION=10.0.19041.0 
+set PYTHON_BIN_PATH=C:\Users\arham\Documents\extras\mediapipe\env\Scripts\python.exe
+
+8. openCV 설치 및 경로설정(3.4.16) C:\opencv
+https://opencv.org/releases/
+
+8. python build.py build --desktop cpu --include_opencv_libs -v
+8-1 오류 발생시 읽어볼 것, pip install numpy 등 필요 모듈 설치
+8-2 cp -r build/* Packages\com.github.homuler.mediapipe\Runtime 에러 발생시
+MediaPipeUnityPlugin\build 내부 파일 3개를 MediaPipeUnityPlugin\Packages\com.github.homuler.mediapipe\Runtime 에 복사하면 설치 끝
+unity hub에서 실행
+
+

@@ -57,7 +57,7 @@ namespace Mediapipe.Unity.PoseTracking
     private OutputStream<NormalizedLandmarkListPacket, NormalizedLandmarkList> _poseLandmarksStream;
     private OutputStream<LandmarkListPacket, LandmarkList> _poseWorldLandmarksStream;
     private OutputStream<NormalizedRectPacket, NormalizedRect> _roiFromLandmarksStream;
-
+    private PoseManager _poseManager;
     public override void StartRun(ImageSource imageSource)
     {
       if (runningMode.IsSynchronous())
@@ -73,6 +73,11 @@ namespace Mediapipe.Unity.PoseTracking
         _poseLandmarksStream.AddListener(PoseLandmarksCallback).AssertOk();
         _poseWorldLandmarksStream.AddListener(PoseWorldLandmarksCallback).AssertOk();
         _roiFromLandmarksStream.AddListener(RoiFromLandmarksCallback).AssertOk();
+      }
+      var poseObject = GameObject.Find("PoseManager");
+      if (poseObject)
+      {
+        _poseManager = poseObject.GetComponent<PoseManager>();
       }
       StartRun(BuildSidePacket(imageSource));
     }
@@ -107,6 +112,11 @@ namespace Mediapipe.Unity.PoseTracking
       if (r2) { OnPoseLandmarksOutput.Invoke(poseLandmarks); }
       if (r3) { OnPoseWorldLandmarksOutput.Invoke(poseWorldLandmarks); }
       if (r4) { OnRoiFromLandmarksOutput.Invoke(roiFromLandmarks); }
+      //_poseManager.SetPose(poseWorldLandmarks.Landmark);
+      if(null!= poseWorldLandmarks)
+      {
+        _poseManager.SetPose(poseWorldLandmarks.Landmark);
+      }
 
       return r1 || r2 || r3 || r4;
     }

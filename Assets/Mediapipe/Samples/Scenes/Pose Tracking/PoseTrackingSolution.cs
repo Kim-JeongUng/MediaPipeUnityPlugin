@@ -18,6 +18,7 @@ namespace Mediapipe.Unity.PoseTracking
     [SerializeField] private NormalizedRectAnnotationController _roiFromLandmarksAnnotationController;
 
 
+    private PoseManager _poseManager;
     public PoseTrackingGraph.ModelComplexity modelComplexity
     {
       get => graphRunner.modelComplexity;
@@ -48,6 +49,16 @@ namespace Mediapipe.Unity.PoseTracking
       SetupAnnotationController(_poseLandmarksAnnotationController, imageSource);
       SetupAnnotationController(_poseWorldLandmarksAnnotationController, imageSource);
       SetupAnnotationController(_roiFromLandmarksAnnotationController, imageSource);
+      var poseObject = GameObject.Find("PoseManager");
+      if (poseObject)
+      {
+        _poseManager = poseObject.GetComponent<PoseManager>();
+      }/*
+      if (_poseManager)
+      {
+        _poseManager.SetPose(graphRunner);
+      }*/
+
     }
 
     protected override void AddTextureFrameToInputStream(TextureFrame textureFrame)
