@@ -20,6 +20,8 @@ namespace Mediapipe.Unity
     [SerializeField] private IrisLandmarkListAnnotation _rightIrisLandmarkListAnnotation;
 
     private const int _FaceLandmarkCount = 468;
+
+    //private const int _FaceLandmarkCount = 1371;
     private const int _IrisLandmarkCount = 5;
 
     public override bool isMirrored

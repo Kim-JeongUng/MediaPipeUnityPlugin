@@ -72,6 +72,7 @@ namespace Mediapipe.Unity
           position.z = 0.0f;
         }
         transform.localPosition = position;
+
       }
     }
 

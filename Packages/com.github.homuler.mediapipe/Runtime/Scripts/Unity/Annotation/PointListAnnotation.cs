@@ -20,6 +20,53 @@ namespace Mediapipe.Unity
     [SerializeField] private Color _color = Color.green;
     [SerializeField] private float _radius = 15.0f;
 
+    private MeshFilter meshFilter; // オブジェクトのMeshFilter
+    private Mesh faceMesh; // オブジェクトのMesh
+    private List<Vector3> vertextList = new List<Vector3>(); // Meshの頂点の座標リスト
+    private readonly List<int> Except = new List<int>{10,
+21,
+54,
+58,
+67,
+93,
+103,
+109,
+127,
+132,
+136,
+148,
+149,
+150,
+152,
+162,
+172,
+176,
+234,
+251,
+284,
+288,
+297,
+323,
+332,
+338,
+356,
+361,
+365,
+377,
+378,
+379,
+389,
+397,
+400,
+454 };
+
+    private void Awake()
+    {
+      Debug.Log("SADAD");
+      meshFilter = GameObject.Find("default").GetComponent<MeshFilter>(); // defaultオブジェクトからMeshFilterを取得
+      faceMesh = meshFilter.mesh; // Meshをセット
+      vertextList.AddRange(faceMesh.vertices); // Meshから頂点座標リストを取得
+    }
     private void OnValidate()
     {
       ApplyColor(_color);
@@ -72,10 +119,38 @@ namespace Mediapipe.Unity
         CallActionForAll(targets, (annotation, target) =>
         {
           if (annotation != null) { annotation.Draw(target, visualizeZ); }
+          if (targets.Count>=460)
+          {
+          UpdateFaceMesh(targets);
+          }
         });
       }
     }
 
+
+    private int meshScale = -5; // サイズ調整用の変数
+    private void UpdateFaceMesh(IList<NormalizedLandmark> landmarkList)
+    {
+      if(null == meshFilter)
+      {
+        //FindMesh();
+      }
+
+      // 顔の頂点分だけ実行（478 - 10 = 468）
+      for (var i = 0; i < landmarkList.Count; i++)
+      {
+        var landmark = landmarkList[i];
+        // 検出したLandmarkをMeshの頂点座標にセット
+        if (Except.Contains(i))
+        {
+          vertextList[i] = new Vector3(meshScale * landmark.X*0.9f, meshScale * landmark.Y*0.9f, meshScale * landmark.Z * 0.9f);
+        }
+        else
+          vertextList[i] = new Vector3(meshScale * landmark.X, meshScale * landmark.Y, meshScale * landmark.Z);
+      }
+      // 座標リストをMeshに適用
+      faceMesh.SetVertices(vertextList);
+    }
     public void Draw(NormalizedLandmarkList targets, bool visualizeZ = true)
     {
       Draw(targets.Landmark, visualizeZ);

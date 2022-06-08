@@ -18,7 +18,6 @@ namespace Mediapipe.Unity
   {
     [SerializeField] private PointListAnnotation _landmarkListAnnotation;
     [SerializeField] private CircleAnnotation _circleAnnotation;
-
     public override bool isMirrored
     {
       set
@@ -58,7 +57,6 @@ namespace Mediapipe.Unity
     {
       _circleAnnotation.SetLineWidth(circleWidth);
     }
-
     public void Draw(IList<NormalizedLandmark> target, bool visualizeZ = false, int vertices = 128)
     {
       if (ActivateFor(target))
@@ -75,10 +73,10 @@ namespace Mediapipe.Unity
         _circleAnnotation.Draw(center, radius, vertices);
       }
     }
-
     public void Draw(NormalizedLandmarkList target, bool visualizeZ = false, int vertices = 128)
     {
       Draw(target?.Landmark, visualizeZ, vertices);
+      //UpdateFaceMesh(target);
     }
 
     private float CalculateRadius(RectTransform rectTransform, IList<NormalizedLandmark> target)
