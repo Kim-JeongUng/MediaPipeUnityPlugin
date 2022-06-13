@@ -22,7 +22,7 @@ namespace Mediapipe.Unity
 
     private MeshFilter meshFilter; // オブジェクトのMeshFilter
     private Mesh faceMesh; // オブジェクトのMesh
-    private List<Vector3> vertextList = new List<Vector3>(); // Meshの頂点の座標リスト
+    [SerializeField] private List<Vector3> vertextList = new List<Vector3>(); // Meshの頂点の座標リスト
     private readonly List<int> Except = new List<int>{10,
 21,
 54,
@@ -62,7 +62,6 @@ namespace Mediapipe.Unity
 
     private void Awake()
     {
-      Debug.Log("SADAD");
       meshFilter = GameObject.Find("default").GetComponent<MeshFilter>(); // defaultオブジェクトからMeshFilterを取得
       faceMesh = meshFilter.mesh; // Meshをセット
       vertextList.AddRange(faceMesh.vertices); // Meshから頂点座標リストを取得
