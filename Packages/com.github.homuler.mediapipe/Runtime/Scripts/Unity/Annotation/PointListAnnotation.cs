@@ -140,12 +140,7 @@ namespace Mediapipe.Unity
       {
         var landmark = landmarkList[i];
         // 検出したLandmarkをMeshの頂点座標にセット
-        if (Except.Contains(i))
-        {
-          vertextList[i] = new Vector3(meshScale * landmark.X*0.9f, meshScale * landmark.Y*0.9f, meshScale * landmark.Z * 0.9f);
-        }
-        else
-          vertextList[i] = new Vector3(meshScale * landmark.X, meshScale * landmark.Y, meshScale * landmark.Z);
+        vertextList[i] = new Vector3(-meshScale * landmark.X, meshScale * landmark.Y, meshScale * landmark.Z);
       }
       // 座標リストをMeshに適用
       faceMesh.SetVertices(vertextList);
